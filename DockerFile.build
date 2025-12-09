@@ -1,0 +1,10 @@
+# --- ÉTAPE UNIQUE : EXÉCUTION (runtime) avec Java 21 JRE ---
+# Utilise le JAR pré-compilé (généré par Maven localement)
+FROM eclipse-temurin:21-jre
+WORKDIR /app
+
+# Copie le JAR pré-construit
+COPY target/stringvalidator.jar /app/stringvalidator.jar
+
+# Point d'entrée : exécute l'application depuis le JAR
+CMD ["java", "-jar", "/app/stringvalidator.jar"]
