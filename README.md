@@ -173,7 +173,7 @@ java -jar target/benchmarks.jar
 - StringValidator: estNomValide, defaultIfNull, calculerLongueur
 - CollectionUtils: findElement, isNullOrEmpty, convertToSet, filterByType
 
-📊 Voir [JMH_BENCHMARKS.md](JMH_BENCHMARKS.md) pour guide complet
+📊 Voir [BENCHMARKS.md](BENCHMARKS.md) pour guide complet
 
 ## 🔐 GitHub Workflows
 
@@ -184,13 +184,13 @@ java -jar target/benchmarks.jar
 | security.yml | push/PR/schedule | Snyk, GitGuardian, Dependency-Check |
 | docker.yml | push/PR | Docker build & test |
 
-**⚠️ Configuration requise**: Voir [GITHUB_SECRETS_SETUP.md](GITHUB_SECRETS_SETUP.md) pour configurer les secrets GitHub (SNYK_TOKEN, GITGUARDIAN_API_KEY, SONAR_TOKEN)
+**⚠️ Configuration requise**: Voir [SETUP_GITHUB_SECRETS.md](SETUP_GITHUB_SECRETS.md) pour configurer les secrets GitHub (SNYK_TOKEN, GITGUARDIAN_API_KEY, SONAR_TOKEN)
 
 ## 📚 Documentation Complète
 
-- **[OPENJML_VERIFICATION.md](OPENJML_VERIFICATION.md)** - Vérification formelle avec JML
-- **[JMH_BENCHMARKS.md](JMH_BENCHMARKS.md)** - Benchmarking de performance
-- **[GITHUB_SECRETS_SETUP.md](GITHUB_SECRETS_SETUP.md)** - Configuration des workflows sécurité
+- **[FORMAL_VERIFICATION.md](FORMAL_VERIFICATION.md)** - Vérification formelle avec JML
+- **[BENCHMARKS.md](BENCHMARKS.md)** - Benchmarking de performance
+- **[SETUP_GITHUB_SECRETS.md](SETUP_GITHUB_SECRETS.md)** - Configuration des workflows sécurité
 
 ## 📋 Modules Détaillés
 
