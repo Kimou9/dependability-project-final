@@ -1,122 +1,196 @@
-# StringValidator - Application Java 21
+# StringValidator & Baeldung Generics - Projet Dépendabilité
 
-Application de validation de chaînes de caractères avec sûreté, robustesse et fiabilité.
+**Projet académique de génie logiciel avec sûreté, robustesse et fiabilité.**
 
-## 🎯 Objectifs
+## 📋 Vue d'ensemble
 
-- **Sûreté** : Validation de noms avec lettres accentuées
-- **Robustesse** : Gestion des valeurs null
-- **Fiabilité** : Calcul de longueur avec limites
+Ce projet démontre les principes fondamentaux du développement logiciel dépendable en Java 21 LTS, intégrant:
+- **Validation de chaînes de caractères** (sûreté, robustesse, fiabilité)
+- **Programmation générique** (types bornés, wildcards)
+- **Enums et conversion d'entiers**
+- **Patterns de gestion d'exceptions** (finally keyword)
+- **Assurance qualité** : JUnit 5, JaCoCo (couverture), PiTest (mutation testing)
+- **Intégration continue** : GitHub Workflows, SonarQube, sécurité (Snyk, GitGuardian)
+- **Containerisation** : Docker avec Java 21 LTS
 
-## 🔧 Prérequis
+## 🎯 Objectifs du Projet
 
-- **Java** : 21 LTS ou supérieur
-- **Maven** : 3.9.11 ou supérieur
-- **Docker** : (optionnel, pour containerisation)
+### 1. **Sûreté** (Security)
+- Validation stricte des entrées avec regex Unicode
+- Gestion sécurisée des valeurs null
+- Tests unitaires exhaustifs couvrant les edge cases
 
-## 📦 Installation
+### 2. **Robustesse** (Robustness)
+- Gestion d'exceptions appropriées
+- Patterns finally keyword pour garantir l'exécution
+- Conversion sûre int→enum avec validation
+
+### 3. **Fiabilité** (Reliability)
+- Couverture de code JaCoCo (target: 70%+)
+- Mutation testing avec PiTest
+- Tests d'intégration pour scénarios complexes
+- Vérification formelle avec JML (spécifications en commentaires)
+
+## 📦 Structure du Projet
+
+```
+SoftDep_Projet/
+├── src/
+│   ├── main/java/
+│   │   ├── StringValidator.java                 # Validation de chaînes
+│   │   └── com/baeldung/
+│   │       ├── generics/
+│   │       │   ├── Animal.java                 # Classe abstraite
+│   │       │   ├── Cat.java                    # Implémente Comparable
+│   │       │   ├── Dog.java                    # Implémentation concrète
+│   │       │   └── CollectionUtils.java        # Méthodes génériques
+│   │       ├── inttoenum/
+│   │       │   └── PizzaStatus.java            # Enum int-to-enum
+│   │       └── finallykeyword/
+│   │           ├── FinallyExample.java         # Pattern try-finally
+│   │           └── FinallyExecutedCases.java   # 5 scénarios
+│   └── test/java/
+│       ├── TestStringValidator.java             # 6 tests
+│       └── com/baeldung/
+│           ├── generics/*Test.java              # 11 tests
+│           ├── inttoenum/*Test.java             # 11 tests
+│           └── finallykeyword/*Test.java        # 6 tests
+├── .github/workflows/
+│   ├── maven.yml                                # Build & Test
+│   ├── sonarqube.yml                            # Analyse qualité
+│   ├── security.yml                             # Scan sécurité
+│   └── docker.yml                               # Docker build
+├── pom.xml                                      # Configuration Maven
+├── DockerFile.build                             # Containerisation
+└── README.md                                    # Ce fichier
+```
+
+## 🛠️ Prérequis
+
+- **Java** : JDK 21 LTS
+- **Maven** : 3.9.11+
+- **Docker** : (optionnel)
+- **Git** : Pour version control
+
+## 🚀 Installation & Utilisation
+
+### Installation
 
 ```bash
-# Cloner le dépôt
-git clone <repo-url>
+# Cloner
+git clone https://github.com/Kimou9/dependability-project-final.git
 cd SoftDep_Projet
 
 # Compiler
 mvn clean compile
 
-# Tester
-mvn test
+# Tests
+mvn test                    # Tests unitaires
+mvn verify                  # Tests + intégration + JaCoCo
 
-# Créer le JAR
+# Package
 mvn package
 ```
 
-## ▶️ Utilisation
+### Exécution
 
-### Exécution locale
 ```bash
 java -jar target/stringvalidator.jar
 ```
 
-### Exécution avec Docker
+### Docker
+
 ```bash
-docker build -f DockerFile.build -t stringvalidator:java21 .
-docker run --rm stringvalidator:java21
+docker build -f DockerFile.build -t softdep:java21 .
+docker run --rm softdep:java21
 ```
 
-## 🧪 Tests
+## 🧪 Tests (34 tests)
 
-Le projet inclut 6 tests unitaires JUnit 5 :
+| Module | Unit | Integration | Total |
+|--------|------|-------------|-------|
+| StringValidator | 6 | - | 6 |
+| Generics | 7 | 4 | 11 |
+| Enums | 7 | 4 | 11 |
+| Finally | 6 | - | 6 |
+| **Total** | **26** | **8** | **34** |
 
-- **Sûreté** (3 tests) : Validation de noms simples, composés, rejet de chiffres/symboles
-- **Robustesse** (2 tests) : Gestion des valeurs null
-- **Fiabilité** (3 tests) : Calcul de longueur, respect des limites, gestion du null
+### Test Frameworks
+- **JUnit 5** (5.9.3) : Framework principal
+- **Mockito** (5.2.0) : Mocking
+- **JaCoCo** (0.8.10) : Couverture (70%+)
+- **PiTest** (1.14.2) : Mutation testing (70%+)
 
-Lancer les tests :
+## 📊 Qualité du Code
+
 ```bash
-mvn test
+# Couverture JaCoCo
+mvn jacoco:report
+# Rapport: target/site/jacoco/index.html
+
+# Mutation testing PiTest
+mvn pitest:mutationCoverage
+# Rapport: target/pit-reports/
 ```
 
-## 📝 Fonctionnalités
+## 🔐 GitHub Workflows
 
-### `estNomValide(String nom)`
-Valide un nom avec lettres (y compris accentuées) et espaces uniquement.
+| Workflow | Trigger | Action |
+|----------|---------|--------|
+| maven.yml | push/PR | Compile, test, coverage |
+| sonarqube.yml | push/PR | SonarQube analysis |
+| security.yml | push/PR/schedule | Snyk, GitGuardian |
+| docker.yml | push/PR | Docker build & test |
 
-```java
-StringValidator.estNomValide("Jean Dupont");    // true
-StringValidator.estNomValide("Jean123");        // false
-```
+## 📋 Modules Détaillés
 
-### `defaultIfNull(String str, String defaultStr)`
-Retourne la chaîne ou une valeur par défaut si null.
+### StringValidator
+- `estNomValide()` : Valide noms (Unicode + espaces)
+- `defaultIfNull()` : Gestion null
+- `calculerLongueur()` : Validation avec limite
+- **Regex** : `^[\p{L}\s]+$` (lettres Unicode)
 
-```java
-StringValidator.defaultIfNull(null, "défaut");  // "défaut"
-StringValidator.defaultIfNull("valeur", "x");   // "valeur"
-```
+### Generics
+- **Animal** : Classe abstraite avec JML
+- **Cat** : Implements Comparable<Cat>
+- **Dog** : Implémentation simple
+- **CollectionUtils** : 8 méthodes génériques (swap, merge, sum)
 
-### `calculerLongueur(String str, int limiteMax)`
-Calcule la longueur et vérifie la limite.
+### Enum
+- **PizzaStatus** : ORDERED(5), READY(2), DELIVERED(0)
+- Conversion int→enum via HashMap
+- Edge case handling
 
-```java
-StringValidator.calculerLongueur("test", 10);   // 4
-StringValidator.calculerLongueur("trop long", 5); // Lance IllegalArgumentException
-```
+### Finally
+- Normal flow
+- Exceptions unhandled/handled
+- Return from try/catch
+- Propagation d'exceptions
 
-## 🐳 Docker
+## ✅ Checklist
 
-**DockerFile.build** : Utilise Java 21 JRE, exécute le JAR pré-compilé.
+- [x] Java 21 LTS setup
+- [x] Maven configuration
+- [x] 34 tests JUnit 5
+- [x] JaCoCo coverage
+- [x] PiTest mutation
+- [x] GitHub Workflows
+- [ ] SonarQube Cloud
+- [ ] Snyk integration
+- [ ] GitGuardian setup
+- [ ] OpenJML verification
 
-```dockerfile
-FROM eclipse-temurin:21-jre
-WORKDIR /app
-COPY target/stringvalidator.jar /app/stringvalidator.jar
-CMD ["java", "-jar", "/app/stringvalidator.jar"]
-```
+## 🔗 Ressources
 
-## 📂 Structure du projet
+- **GitHub** : https://github.com/Kimou9/dependability-project-final
+- **Baeldung** : https://github.com/eugenp/tutorials
+- **Maven Central** : https://mvnrepository.com/
 
-```
-src/
-├── main/java/StringValidator.java         # Code principal
-└── test/java/TestStringValidator.java     # Tests JUnit 5
-pom.xml                                     # Configuration Maven
-DockerFile.build                            # Configuration Docker
-README.md                                   # Cette documentation
-```
+## 📝 Licence
 
-## ✅ État du projet
+MIT License
 
-- ✅ Code corrigé (accents, orthographe)
-- ✅ Tests unitaires (6 tests passants)
-- ✅ Build Maven (Java 21)
-- ✅ Containerisation Docker (Java 21)
-- ✅ Documentation complète
+---
 
-## 📄 Licence
-
-Projet éducatif - Sûreté Logicielle & Dépendances
-
-## 👨‍💻 Auteur
-
-Développé dans le contexte du cours de Sûreté Logicielle et Gestion des Dépendances.
+**Status** : Phase 3 complétée (GitHub Workflows, 34 tests passant)  
+**Dernière MAJ** : Décembre 2025
