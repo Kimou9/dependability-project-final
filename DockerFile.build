@@ -1,10 +1,25 @@
-# --- ÉTAPE UNIQUE : EXÉCUTION (runtime) avec Java 21 JRE ---
-# Utilise le JAR pré-compilé (généré par Maven localement)
+# --- ÉTAPE 1 : BUILD (compilation et packaging) avec Java 21 JDK ---
+FROM eclipse-temurin:21-jdk AS builder
+WORKDIR /build
+
+# Installe Maven
+RUN apt-get update && apt-get install -y maven && rm -rf /var/lib/apt/lists/*
+
+# Copie le code source
+COPY . .
+
+# Compile et package le projet Maven
+RUN mvn clean package -DskipTests
+
+# --- ÉTAPE 2 : RUNTIME avec Java 21 JRE (image légère) ---
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-# Copie le JAR pré-construit
-COPY target/stringvalidator.jar /app/stringvalidator.jar
+# Copie le JAR depuis l'étape builder
+COPY --from=builder /build/target/stringvalidator-1.0.0.jar /app/stringvalidator.jar
+
+# Expose un port (optionnel, si l'app l'utilise)
+EXPOSE 8080
 
 # Point d'entrée : exécute l'application depuis le JAR
-CMD ["java", "-jar", "/app/stringvalidator.jar"]
+ENTRYPOINT ["java", "-jar", "/app/stringvalidator.jar"]
