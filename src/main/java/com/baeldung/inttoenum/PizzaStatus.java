@@ -46,7 +46,7 @@ public enum PizzaStatus {
      * Converts an integer to PizzaStatus enum.
      * 
      * @requires timeToDelivery >= 0
-     * @ensures \result != null || \result == null
+     * @ensures \result != null iff timeToDelivery is a valid delivery time value
      */
     public static PizzaStatus castIntToEnum(int timeToDelivery) {
         return timeToDeliveryToEnumValuesMapping.get(timeToDelivery);

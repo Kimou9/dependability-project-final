@@ -5,7 +5,7 @@ package com.baeldung.generics;
  * Specification:
  * @invariant type != null && name != null
  */
-abstract class Animal {
+public abstract class Animal {
 
     protected final String type;
     protected final String name;
